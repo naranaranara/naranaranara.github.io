@@ -18,3 +18,22 @@
 </script>
 <script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 {% endif %}
+<style>
+  /* 메인 본문을 가운데 고정 + 적당한 최대폭 */
+  .initial-content,
+  .page,
+  .page__content,
+  .archive {
+    max-width: 900px;      /* 취향에 맞게 760~1000px 사이로 조절 */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem; /* 양옆 여백 */
+    padding-right: 1.25rem;
+  }
+
+  /* 이미지가 본문 폭을 넘지 않도록 */
+  .page__content img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>

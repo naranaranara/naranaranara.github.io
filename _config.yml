@@ -17,7 +17,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 # Site Settings
 markdown: kramdown
 kramdown:
-  input: GFM
+  input: kramdown
   math_engine: mathjax
 use_math: true
 locale                   : "en-US"

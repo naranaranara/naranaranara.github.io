@@ -8,15 +8,26 @@
     {% include head.html %}
     {% include head/custom.html %}
     {% if page.use_math or site.use_math %}
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- 1) MathJax 설정은 반드시 로더보다 앞에 -->
 <script>
-MathJax = {
+window.MathJax = {
   tex: {
+    // 단일 달러 인라인을 쓰고 싶다면 켜기 (안 쓰려면 첫 줄 지워도 됨)
     inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    displayMath: [['$$','$$'], ['\\[','\\]']],
+    // \$ 처럼 탈출을 허용 (가격표시 등)
+    processEscapes: true
+  },
+  options: {
+    // 코드블럭 등은 스킵
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
   }
 };
+</script>
+
+<!-- 2) MathJax v3 로더: 설정 뒤에, polyfill.io는 제거 -->
+<script defer id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
 </script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>

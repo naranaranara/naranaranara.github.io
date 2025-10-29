@@ -19,21 +19,34 @@
 <script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 {% endif %}
 <style>
-  /* 메인 본문을 가운데 고정 + 적당한 최대폭 */
+  /* ── 리셋: 전에 덮어쓴 전역 폭/정렬 되돌리기 ───────────────────────── */
+  /* (혹시 이전에 .initial-content, .page, .archive 등에 max-width/margin 줬다면
+     그 블록은 삭제하거나 아래처럼 'inherit'로 초기화하세요) */
   .initial-content,
   .page,
-  .page__content,
   .archive {
-    max-width: 900px;      /* 취향에 맞게 760~1000px 사이로 조절 */
+    max-width: inherit;
+    margin-left: inherit;
+    margin-right: inherit;
+    padding-left: inherit;
+    padding-right: inherit;
+  }
+
+  /* ── 게시글/단일 페이지에서만 본문 폭을 가운데로 제한 ─────────────── */
+  .layout--single .page__content {
+    max-width: 900px;              /* 760~1000px 사이로 취향대로 */
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.25rem; /* 양옆 여백 */
+    padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
 
-  /* 이미지가 본문 폭을 넘지 않도록 */
-  .page__content img {
+  /* 본문 이미지 반응형 */
+  .layout--single .page__content img {
     max-width: 100%;
     height: auto;
   }
+
+  /* 홈(Recent posts + Your Name)은 기본 2-컬럼 유지 (폭 건드리지 않음) */
+  .layout--home .archive { max-width: none; }
 </style>

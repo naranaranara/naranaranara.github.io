@@ -1,3 +1,19 @@
+{% if page.mathjax or site.mathjax or page.use_math or site.use_math %}
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      packages: {'[+]': ['ams', 'textmacros']}
+    },
+    loader: { load: ['[tex]/ams', '[tex]/textmacros'] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+{% endif %}
+
 <style>
   /* ── 리셋: 전에 덮어쓴 전역 폭/정렬 되돌리기 ───────────────────────── */
   /* (혹시 이전에 .initial-content, .page, .archive 등에 max-width/margin 줬다면

@@ -15,34 +15,19 @@
 {% endif %}
 
 <style>
-  /* ── 리셋: 전에 덮어쓴 전역 폭/정렬 되돌리기 ───────────────────────── */
-  /* (혹시 이전에 .initial-content, .page, .archive 등에 max-width/margin 줬다면
-     그 블록은 삭제하거나 아래처럼 'inherit'로 초기화하세요) */
-  .initial-content,
-  .page,
-  .archive {
-    max-width: inherit;
-    margin-left: inherit;
-    margin-right: inherit;
-    padding-left: inherit;
-    padding-right: inherit;
+  /* 게시글(단일 페이지)에서만 본문 폭 제한 — post/single 둘 다 케이스 커버 */
+  .layout--post .page__inner-wrap,
+  .layout--single .page__inner-wrap {
+    max-width: 900px;     /* 760~1000px 사이로 취향 조절 */
+    margin: 0 auto;
+    padding: 0 1.25rem;
   }
 
-  /* ── 게시글/단일 페이지에서만 본문 폭을 가운데로 제한 ─────────────── */
-  .layout--single .page__content {
-    max-width: 900px;              /* 760~1000px 사이로 취향대로 */
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
-  /* 본문 이미지 반응형 */
+  .layout--post .page__content img,
   .layout--single .page__content img {
     max-width: 100%;
     height: auto;
   }
 
-  /* 홈(Recent posts + Your Name)은 기본 2-컬럼 유지 (폭 건드리지 않음) */
-  .layout--home .archive { max-width: none; }
+  /* 홈/목록은 2-컬럼 유지: 전역 폭 제한 없앰 */
 </style>

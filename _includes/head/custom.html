@@ -15,19 +15,29 @@
 {% endif %}
 
 <style>
-  /* 게시글(단일 페이지)에서만 본문 폭 제한 — post/single 둘 다 케이스 커버 */
-  .layout--post .page__inner-wrap,
-  .layout--single .page__inner-wrap {
-    max-width: 900px;     /* 760~1000px 사이로 취향 조절 */
+  /* ── 포스트/싱글 페이지 본문만 가운데 고정 폭 ───────────────── */
+  /* 케이스1: MM 기본 구조(.page__inner-wrap)가 있을 때 */
+  body.layout--single .page__inner-wrap,
+  body.layout--post   .page__inner-wrap {
+    max-width: 900px;        /* 취향: 760~1000px로 조절 */
     margin: 0 auto;
     padding: 0 1.25rem;
   }
 
-  .layout--post .page__content img,
-  .layout--single .page__content img {
+  /* 케이스2: 테마/레이아웃에 따라 inner-wrap이 없을 때 대비 */
+  body.layout--single .initial-content,
+  body.layout--post   .initial-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  /* 본문 이미지 반응형 */
+  body.layout--single .page__content img,
+  body.layout--post   .page__content img {
     max-width: 100%;
     height: auto;
   }
 
-  /* 홈/목록은 2-컬럼 유지: 전역 폭 제한 없앰 */
+  /* 홈/목록(Recent posts + Your Name)은 2-컬럼 그대로 유지 */
 </style>

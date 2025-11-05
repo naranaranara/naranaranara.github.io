@@ -65,7 +65,7 @@ for (auto cell : dof_handler.active_cell_iterators()){
       F[local[A]] += Flocal[A];
   }
 }
-```  
+```
 ## 측정값은 0보다 살짝 안쪽에서 평가
 - 패치부분에서 기울기가 확 바뀌기 때문에 경계에 정확히 찍으면 매시에 따라서 값이 튐
 - main.cc 파일에서 수정  
@@ -83,7 +83,7 @@ std::cout << "[surf in] Ttilde_L=" << Ttilde_L(T_in) << "\n";
 Point<3> p_surf(1.0, 1.0, 1.0);
 double T_s = VectorTools::point_value(problem.dof_handler, problem.D_steady, p_surf);
 std::cout << "[surf]    Ttilde_L=" << Ttilde_L(T_s) << "\n";
-```  
+```
 ## 국부 정련 
 - x=0 부분에서 패치 엣지의 영향이 x 방향으로 전파되는 것을 막기 위해서 패치 둘레에 얇은 띠를 정밀하게 만드는 과정  
 - 해상도(공간 정확도) 높이기
@@ -100,7 +100,7 @@ for (unsigned int r=0; r<2; ++r){
   }
   problem.triangulation.execute_coarsening_and_refinement();
 }
-```  
+```
 ## 실행 방법 (빌드 -> 실행)
 - ./ 뒤에는 파일명 넣으면 됨
 ```

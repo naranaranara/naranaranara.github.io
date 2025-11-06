@@ -24,11 +24,10 @@ $\rightarrow$ 계산이 매우 느려지면서 wsl로 열었던 우분투가 응
 
 ## 제대로 열유속이 적용되었는지 확인
 1. 가열 패치에서 열유속($q_0$)가 정확한 면적에, 정확한 크기로 적용됐는지 확인하기 위해서 적용 유속을 면적분 한 값을 확인  
-  - #include 아래, mian() 함수 위쪽에 추가
 $$
 \rightarrow \int (-k \nabla Tn) \, dA = q_0(2a)2=4
 $$
-
+ - #include 아래, mian() 함수 위쪽에 추가
 ```
 double integrate_solution_flux(const dealii::DoFHandler<3>& dof,
                                const dealii::FiniteElement<3>& fe,

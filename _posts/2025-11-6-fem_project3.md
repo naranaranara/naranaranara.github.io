@@ -129,5 +129,6 @@ const double eps2  = 0.50 * h_min;
     num_of_elems[2] = 50;  // Nz
 ```
 2. 결과가 7.4정도로 나와서 정확한 값인줄 알고 paraview에 플롯팅 해봤다.  
-![alt text](first_cliff.png)  
+<img width="766" height="410" alt="first_cliff" src="https://github.com/user-attachments/assets/c72d7ccf-deea-4f52-aa0b-f9015615047e" />
+
 중간에 값이 없어서 절벽마냥 뚝 끊긴 그래프가 생겼다. $\rightarrow$ hanging node 문제 발생

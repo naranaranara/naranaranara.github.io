@@ -59,24 +59,25 @@ double integrate_solution_flux(const dealii::DoFHandler<3>& dof,
   return flux; 
 }
 ```
-- solver_steady() 바로 뒤에 추가  
+  - solver_steady() 바로 뒤에 추가  
 ```
 double q_from_sol = integrate_solution_flux(problem.dof_handler, problem.fe,
                                             problem.D_steady, /*k=*/385.0);
 std::cout << "[check] solution_flux (∫-k∇T·n dA) = " << q_from_sol
           << "  (target ≈ 4.0)\n";
 ```
-2. 결과: 항상 sum(F)=4로 정확히 나와서 이 문제는 아닌 걸로 판단  
+2.  결과: 항상 sum(F)=4로 정확히 나와서 이 문제는 아닌 걸로 판단
+
 ## 외삽법 써보기
 1. 개념  
   경계 정확히 위를 찍으면 패치 윗면은 기울기가 급해서 경계 위에 잡으면 값이 부정확할 수 있다. 따라서 2점 외삽법을 사용하기로 한다. 2점 외삽법은 경계에서 아주 작게 떨어진 두점을 잡고 직선으로 0까지 만드는 방법이다
   $$
   T(0) \approx 2T(\Delta) -T(2\Delta)
   $$  
-  2. 방법  
-  값이 바껴도 적용될 수 있도록 비율을 사용한다. (0.25h,205h) 두 점을 쓴다.  
-  - main.cc #include 바로 뒤
-  ```
+2. 방법  
+  값이 바껴도 적용될 수 있도록 비율을 사용한다. (0.25h,205h) 두 점을 쓴다.
+- main.cc #include 바로 뒤
+```
 double probe_T_at(const dealii::DoFHandler<3>& dof,
                   const dealii::Vector<double>& D,
                   const dealii::Point<3>& p)
@@ -94,7 +95,8 @@ double boundary_limit_T_center(const dealii::DoFHandler<3>& dof,
   return T1 + (T1 - T2) * (eps1 / (eps2 - eps1));
 }
 ```
-- 호출 위치는 main에서 solve_steady()다음  
+
+- 호출 위치는 main에서 solve_steady()다음
 ```
 const double k = 385.0, q0 = 1.0, L = 1.0;
 auto Ttilde_L = [&](double T){ return -(k/(q0*L)) * T; };
@@ -114,11 +116,10 @@ const double eps2  = 0.50 * h_min;
   std::cout << "[QoI] center (eps->0)  Ttilde_L = " << Ttilde_L(T_eps0) << "\n";
 }
 ```
-3.결과 : 7.55711으로 목표값 대비 +3.148% $\rightarrow$ 3점 외삽법 쓰면 더 정확해지려나?  
+3.결과 : 7.55711으로 목표값 대비 +3.148% $\rightarrow$ 3점 외삽법 쓰면 더 정확해지려나?
 ## 3점 외삽법
 1. 결과: 7.9로 오차가 더욱 커지는 것을 확인했다.  
-2. 고찰: 3점 외삽은 2차 함수(곡성)으로 예측하는 것이다. 만약에 데이터가 부드러운 곡선이라면 3점 외삽법이 더 정확할 수 있다. 띠리사 해석 결과가 완벽하게 매끄럽지 않고 노이즈(울퉁불퉁함)이 섞여있을 수 있다는 것을 유추할 수 있었다. $\rightarrow$ 그렇다면 해상도를 더 높여서 mesh를 25,50,50으로 해볼까?  
-
+2. 고찰: 3점 외삽은 2차 함수(곡성)으로 예측하는 것이다. 만약에 데이터가 부드러운 곡선이라면 3점 외삽법이 더 정확할 수 있다. 띠리사 해석 결과가 완벽하게 매끄럽지 않고 노이즈(울퉁불퉁함)이 섞여있을 수 있다는 것을 유추할 수 있었다. $\rightarrow$ 그렇다면 해상도를 더 높여서 mesh를 25,50,50으로 해볼까?
 ## 매쉬 더 잘게 자르기  
 1. 해상도를 높이는 방법을 선택했다. 더 정확한 값이면 이론값과 비슷해질거라고 생각했다. 그리고 25,50,50으로 나눈 이유는 이때까지만 해도 그냥 x와 y,z가 2배만 되면 다 괜찮다고 생각했다.
 ```

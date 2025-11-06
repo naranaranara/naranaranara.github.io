@@ -39,7 +39,7 @@ for (unsigned int i=0; i<dof_handler.n_dofs(); ++i){
     boundary_values_of_V[i] = 0.0; 
   }
 }
-```  
+```
 ## Neuman B.C. 면적분 
 - $ \int _{\Gamma_N}(-q_0)N_A \, d\Gamma$  
 - 검증 방법: sum(F) 값이 -4 근처

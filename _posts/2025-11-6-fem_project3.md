@@ -28,6 +28,7 @@ $\rightarrow$ 계산이 매우 느려지면서 wsl로 열었던 우분투가 응
 $ \rightarrow \int (-k \nabla Tn) ,\ dA = q_0(2a)2=4 $
 
 - #include 아래, mian() 함수 위쪽에 추가
+
 ```
 double integrate_solution_flux(const dealii::DoFHandler<3>& dof,
                                const dealii::FiniteElement<3>& fe,

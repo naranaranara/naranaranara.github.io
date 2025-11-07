@@ -83,6 +83,7 @@ void FEM<dim>::generate_mesh(std::vector<unsigned int> numberOfElements)
 }
 ```
   - dirichlet b.c.
+
 ```
 template <int dim>
 void FEM<dim>::define_boundary_conds()
@@ -113,6 +114,7 @@ void FEM<dim>::define_boundary_conds()
 }
 ```
   - 확인 코드: dirichlet dofs(check)와 dirichlet dofs의 수가 값게 출력되어야 한다.
+
 ```
 std::cout << "[mesh] faces YMAX=" << faces_ymax
           << ", ZMAX=" << faces_zmax
@@ -149,6 +151,7 @@ std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
   
 # 최종 코드
 - fem.h
+
 ```
 #ifndef FEM4_H
 #define FEM4_H
@@ -595,6 +598,7 @@ double FEM<dim>::l2norm()
 #endif 
 ```
 - main.cc
+
 ```
 #define BOOST_ALLOW_DEPRECATED_HEADERS
 #include <iostream>

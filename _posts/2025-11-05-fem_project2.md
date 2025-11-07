@@ -13,7 +13,7 @@ mathjax: true
 ## 매쉬 & 패치 라벨링
 - 도메인 $[0,1]x[0,20]x[0,20]$ 생성 후, $x=0$ (표면)에 boundardy_id=2 부여
 <br>
-```
+```c++
 GridGenerator::subdivided_hyper_rectangle(triangulation, numberOfElements,
                                           Point<dim>(0,0,0), Point<dim>(1,20,20));
 for (auto cell : triangulation.active_cell_iterators()){
@@ -33,7 +33,7 @@ for (auto cell : triangulation.active_cell_iterators()){
 
 - $ y=20 or z=20 $ 면에 $T=0$ 적용  
 
-```
+```c++
 boundary_values_of_D.clear(); boundary_values_of_V.clear();
 for (unsigned int i=0; i<dof_handler.n_dofs(); ++i){
   const double y = nodeLocation[i][1], z = nodeLocation[i][2];
@@ -48,7 +48,7 @@ for (unsigned int i=0; i<dof_handler.n_dofs(); ++i){
 <br>
 2\.검증 방법: sum(F) 값이 -4 근처
 <br>
-```
+```c++
 QGauss<dim-1> qf_face(quadRule);
 FEFaceValues<dim> fe_face(fe, qf_face, update_values | update_JxW_values);
 for (auto cell : dof_handler.active_cell_iterators()){
@@ -75,7 +75,7 @@ for (auto cell : dof_handler.active_cell_iterators()){
 1\.패치부분에서 기울기가 확 바뀌기 때문에 경계에 정확히 찍으면 매시에 따라서 값이 튐  
 - main.cc 파일에서 수정
 
-```
+```c++
 const double k=385.0, q0=1.0, L=1.0, a=2.0, b=20.0;
 auto Ttilde_L = [&](double T){ return -(k/(q0*L))*T; };
 auto Ttilde_a = [&](double T){ return -(k/(q0*a))*T; };
@@ -94,7 +94,7 @@ std::cout << "[surf]    Ttilde_L=" << Ttilde_L(T_s) << "\n";
 1\.x=0 부분에서 패치 엣지의 영향이 x 방향으로 전파되는 것을 막기 위해서 패치 둘레에 얇은 띠를 정밀하게 만드는 과정  
 <br>
 2\.해상도(공간 정확도) 높이기  
-```
+```c++
 for (unsigned int r=0; r<2; ++r){ 
   for (auto cell : problem.triangulation.active_cell_iterators()){
     const auto c = cell->center();
@@ -109,7 +109,7 @@ for (unsigned int r=0; r<2; ++r){
 ```
 ## 실행 방법 (빌드 -> 실행)
 - ./ 뒤에는 파일명 넣으면 됨
-```
+```c++
 cmake -S .. -B build -DDEAL_II_DIR=/usr/lib/cmake/deal.II -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 ./main4

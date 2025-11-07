@@ -30,6 +30,7 @@ $$
 \tilde{T}_L =\frac{k}{q_0L}(-T), k=385, q_0=1,L=1
 $$
 <img width="995" height="139" alt="Screenshot from 2025-11-05 19-36-51" src="https://github.com/user-attachments/assets/b0c6380b-e1d4-443b-b73a-0e3a451ae697" />{: .centered }
+
 ### 참고문헌  
 
 Beck, J. V., Transient three-dimensional heat conduction problems with partial heating, International Journal of Heat and Mass Transfer, 54 (2011), 2479–2489. DOI: 10.1016/j.ijheatmasstransfer.2011.02.014.

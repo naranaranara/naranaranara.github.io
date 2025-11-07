@@ -124,7 +124,8 @@ std::cout << "[bc] Dirichlet DOFs = " << boundary_values_of_D.size() << std::end
 std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
 ```
 3. 결과
-- (20,40,40)
+
+  - (20,40,40)
   
   [mesh] faces YMAX=800, ZMAX=800, PATCH=16
   [bc] Dirichlet DOFs = 1701  

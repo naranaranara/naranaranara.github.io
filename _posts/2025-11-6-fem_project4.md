@@ -129,14 +129,14 @@ std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
 
   - (20,40,40)
   
-  [mesh] faces YMAX=800, ZMAX=800, PATCH=16
-  [bc] Dirichlet DOFs = 1701  
-  [bc] Dirichlet DOFs (check) = 1701  
-  Number of active elems:       41772  
-  Number of degrees of freedom: 46489  
-  sum(F) = -4  
-  Ttilde_L(eps->0) = 7.54319  
-  **오차 2.9568558%**
+    [mesh] faces YMAX=800, ZMAX=800, PATCH=16
+    [bc] Dirichlet DOFs = 1701  
+    [bc] Dirichlet DOFs (check) = 1701  
+    Number of active elems:       41772  
+    Number of degrees of freedom: 46489  
+    sum(F) = -4  
+    Ttilde_L(eps->0) = 7.54319  
+    **오차 2.9568558%**
   
 - (30,60,60)
   
@@ -154,7 +154,7 @@ std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
   
 # 최종 코드
 - fem.h
-  ```
+```
 #ifndef FEM4_H
 #define FEM4_H
 #include <deal.II/base/quadrature_lib.h>
@@ -598,9 +598,9 @@ double FEM<dim>::l2norm()
 }
 
 #endif 
-  ```
+```
 - main.cc
-  ```
+```
 #define BOOST_ALLOW_DEPRECATED_HEADERS
 #include <iostream>
 #include <vector>
@@ -705,5 +705,5 @@ int main(){
     std::cerr << "\nUnknown exception!" << std::endl; return 1;
   }
 }
-  ```
+```
   

@@ -16,9 +16,9 @@ render_with_liquid: false
 
 - 결과: **6.91189**에서 **6.90041** 로 값이 더 줄어들었다.
 $\rightarrow$ 표면에서 한 칸 안쪽을 찍었으므로 자연스러운 반응
-2. 정확도 개선 시도
+2 \. 정확도 개선 시도
 
-- 2차함수, 점 3개로 계산하여 보려고 함
+  - 2차함수, 점 3개로 계산하여 보려고 함
 ```
 const unsigned int order    = 2;
 const unsigned int quadRule = 3; 

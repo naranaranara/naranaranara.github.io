@@ -114,6 +114,7 @@ cmake -S .. -B build -DDEAL_II_DIR=/usr/lib/cmake/deal.II -DCMAKE_BUILD_TYPE=Rel
 cmake --build build -j$(nproc)
 ./main4
 ```
+
 ## 실행 결과 및 고찰
 1\. sum(F)= -4 확인
 2\. [surface patch center] Ttilde_L ≈ 7.529  

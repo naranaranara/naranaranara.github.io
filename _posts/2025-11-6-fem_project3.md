@@ -68,7 +68,7 @@ double q_from_sol = integrate_solution_flux(problem.dof_handler, problem.fe,
 std::cout << "[check] solution_flux (∫-k∇T·n dA) = " << q_from_sol
           << "  (target ≈ 4.0)\n";
 ```
-2. 결과: 항상 sum(F)=4로 정확히 나와서 이 문제는 아닌 걸로 판단
+2\. 결과: 항상 sum(F)=4로 정확히 나와서 이 문제는 아닌 걸로 판단
 
 ## 외삽법 써보기
 1. 개념  
@@ -121,7 +121,7 @@ const double eps2  = 0.50 * h_min;
   std::cout << "[QoI] center (eps->0)  Ttilde_L = " << Ttilde_L(T_eps0) << "\n";
 }
 ```
-3.결과 : 7.55711으로 목표값 대비 +3.148% $\rightarrow$ 3점 외삽법 쓰면 더 정확해지려나?
+3\.결과 : 7.55711으로 목표값 대비 +3.148% $\rightarrow$ 3점 외삽법 쓰면 더 정확해지려나?
 ## 3점 외삽법
 1. 결과: 7.9로 오차가 더욱 커지는 것을 확인했다.  
 2. 고찰: 3점 외삽은 2차 함수(곡성)으로 예측하는 것이다. 만약에 데이터가 부드러운 곡선이라면 3점 외삽법이 더 정확할 수 있다. 띠리사 해석 결과가 완벽하게 매끄럽지 않고 노이즈(울퉁불퉁함)이 섞여있을 수 있다는 것을 유추할 수 있었다. $\rightarrow$ 그렇다면 해상도를 더 높여서 mesh를 25,50,50으로 해볼까?
@@ -133,7 +133,7 @@ const double eps2  = 0.50 * h_min;
     num_of_elems[1] = 50;  // Ny
     num_of_elems[2] = 50;  // Nz
 ```
-2. 결과가 7.4정도로 나와서 정확한 값인줄 알고 paraview에 플롯팅 해봤다.  
+2\. 결과가 7.4정도로 나와서 정확한 값인줄 알고 paraview에 플롯팅 해봤다.  
 <img width="383" height="205" alt="first_cliff" src="https://github.com/user-attachments/assets/15379cdd-88b1-4941-a29c-5d9ddf344825" />
 
 

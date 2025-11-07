@@ -12,9 +12,9 @@ render_with_liquid: false
 ## 국부 정련 끈 그래프끼리 비교
 <img width="400" height="357" alt="nohanging_(20,40,40)vs(24,48,48)" src="https://github.com/user-attachments/assets/256fd86e-6f0e-496a-ba8c-9fc7b8ec4eb1" />  
 
-1. haning node는 국부 정련을 했을 때, 큰 셀의 모서리/변 중간에만 걸려 있는(맞은편 셀 꼭짓점과 안 맞는) ‘매달린’ 절점이다.
+1\. haning node는 국부 정련을 했을 때, 큰 셀의 모서리/변 중간에만 걸려 있는(맞은편 셀 꼭짓점과 안 맞는) ‘매달린’ 절점이다.
    
-2. 그래프 해석: 그래프가 끊기는 현상은 발생하지 않았지만 값이 이론값과 많이 달라졌고 x=1로 가면서의 값이 두 경우 모두 비슷한 값이여야 하지만 아예 다른 경향을 보인다. $\rightarrow$ 뭔가 잘못됨.
+2\. 그래프 해석: 그래프가 끊기는 현상은 발생하지 않았지만 값이 이론값과 많이 달라졌고 x=1로 가면서의 값이 두 경우 모두 비슷한 값이여야 하지만 아예 다른 경향을 보인다. $\rightarrow$ 뭔가 잘못됨.
 
 ## ubuntu를 멀티 부팅으로 다운
 <img width="325" height="391" alt="coarsettilde" src="https://github.com/user-attachments/assets/10461b1f-0af6-4fa8-a984-2e1096423b9a" />  

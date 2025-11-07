@@ -82,7 +82,6 @@ std::cout << "[check] solution_flux (∫-k∇T·n dA) = " << q_from_sol
   값이 바껴도 적용될 수 있도록 비율을 사용한다. (0.25h,205h) 두 점을 쓴다.
 
 - main.cc #include 바로 뒤
-  
   ```
 double probe_T_at(const dealii::DoFHandler<3>& dof,
                   const dealii::Vector<double>& D,

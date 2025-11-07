@@ -79,6 +79,7 @@ std::cout << "[check] solution_flux (∫-k∇T·n dA) = " << q_from_sol
 2. 방법  
   값이 바껴도 적용될 수 있도록 비율을 사용한다. (0.25h,205h) 두 점을 쓴다.
 - main.cc #include 바로 뒤
+  
 ```
 double probe_T_at(const dealii::DoFHandler<3>& dof,
                   const dealii::Vector<double>& D,
@@ -99,6 +100,7 @@ double boundary_limit_T_center(const dealii::DoFHandler<3>& dof,
 ```
 
 - 호출 위치는 main에서 solve_steady()다음
+
 ```
 const double k = 385.0, q0 = 1.0, L = 1.0;
 auto Ttilde_L = [&](double T){ return -(k/(q0*L)) * T; };

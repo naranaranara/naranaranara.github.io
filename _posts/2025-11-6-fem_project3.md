@@ -20,7 +20,7 @@ $\rightarrow$ 표면에서 한 칸 안쪽을 찍었으므로 자연스러운 반
 
 2 \. 정확도 개선 시도
 - 2차함수, 점 3개로 계산하여 보려고 함
-```
+```c++
 const unsigned int order    = 2;
 const unsigned int quadRule = 3; 
 ```
@@ -32,7 +32,7 @@ $ \rightarrow \int (-k \nabla Tn) ,\ dA = q_0(2a)2=4 $
 
 - #include 아래, mian() 함수 위쪽에 추가
 
-```
+```c++
 double integrate_solution_flux(const dealii::DoFHandler<3>& dof,
                                const dealii::FiniteElement<3>& fe,
                                const dealii::Vector<double>& D_steady,
@@ -65,7 +65,7 @@ double integrate_solution_flux(const dealii::DoFHandler<3>& dof,
 ```
 - solver_steady() 바로 뒤에 추가
   
-```
+```c++
 double q_from_sol = integrate_solution_flux(problem.dof_handler, problem.fe,
                                             problem.D_steady, /*k=*/385.0);
 std::cout << "[check] solution_flux (∫-k∇T·n dA) = " << q_from_sol
@@ -85,7 +85,7 @@ std::cout << "[check] solution_flux (∫-k∇T·n dA) = " << q_from_sol
 
 - main.cc #include 바로 뒤
 
-```
+```c++
 double probe_T_at(const dealii::DoFHandler<3>& dof,
                   const dealii::Vector<double>& D,
                   const dealii::Point<3>& p)
@@ -106,7 +106,7 @@ double boundary_limit_T_center(const dealii::DoFHandler<3>& dof,
 
 - 호출 위치는 main에서 solve_steady()다음
 
-```
+```c++
 const double k = 385.0, q0 = 1.0, L = 1.0;
 auto Ttilde_L = [&](double T){ return -(k/(q0*L)) * T; };
 
@@ -133,7 +133,7 @@ const double eps2  = 0.50 * h_min;
 
 ## 매쉬 더 잘게 자르기  
 1\. 해상도를 높이는 방법을 선택했다. 더 정확한 값이면 이론값과 비슷해질거라고 생각했다. 그리고 25,50,50으로 나눈 이유는 이때까지만 해도 그냥 x와 y,z가 2배만 되면 다 괜찮다고 생각했다.
-```
+```c++
     std::vector<unsigned int> num_of_elems(3);
     num_of_elems[0] = 25;  // Nx
     num_of_elems[1] = 50;  // Ny

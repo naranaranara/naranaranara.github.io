@@ -28,6 +28,7 @@ for (auto cell : triangulation.active_cell_iterators()){
   }
 }
 ```
+
 ## Dirichlet B.C. 경계 설정  
 
 - $ y=20 or z=20 $ 면에 $T=0$ 적용  
@@ -109,11 +110,12 @@ for (unsigned int r=0; r<2; ++r){
 ```
 cmake -S .. -B build -DDEAL_II_DIR=/usr/lib/cmake/deal.II -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
-
 ./main4
 ```
 ## 실행 결과 및 고찰
 1\. sum(F)= -4 확인
-2\. [surface patch center] Ttilde_L ≈ 7.529  
-$\righarrow$ 논문 값보다 +2.8%  
+2\. [surface patch center] Ttilde_L ≈ 7.529
+$$
+\righarrow
+$$ 논문 값보다 +2.8%  
 3\.지금은 mesh를 x,y,z 방향으로 각각 20,40,40으로 나눠놨는데 이게 너무 작아서 그런건 아닐까 의심중

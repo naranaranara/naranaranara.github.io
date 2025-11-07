@@ -30,7 +30,7 @@ render_with_liquid: false
 
   - 경계를 id로 저장
 
-  ```
+    ```
 template <int dim>
 void FEM<dim>::generate_mesh(std::vector<unsigned int> numberOfElements)
 {
@@ -85,7 +85,7 @@ void FEM<dim>::generate_mesh(std::vector<unsigned int> numberOfElements)
 }
   ```
   - dirichlet b.c.
-
+<br>
   ```
 template <int dim>
 void FEM<dim>::define_boundary_conds()
@@ -154,7 +154,6 @@ std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
   
 # 최종 코드
 - fem.h
-
   ```
 #ifndef FEM4_H
 #define FEM4_H
@@ -601,7 +600,6 @@ double FEM<dim>::l2norm()
 #endif 
   ```
 - main.cc
-
   ```
 #define BOOST_ALLOW_DEPRECATED_HEADERS
 #include <iostream>

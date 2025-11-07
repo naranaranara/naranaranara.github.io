@@ -7,6 +7,7 @@ date: 2025-11-6
 tags: [markdown, blog]
 use_math: true
 mathjax: true
+render_with_liquid: false
 ---
 # Paper Rebuild 시리즈 #3:값 더 정교하게 -> 실패
 

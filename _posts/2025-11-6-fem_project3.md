@@ -69,7 +69,7 @@ std::cout << "[check] solution_flux (∫-k∇T·n dA) = " << q_from_sol
           << "  (target ≈ 4.0)\n";
 ```
 <br>
-2.  결과: 항상 sum(F)=4로 정확히 나와서 이 문제는 아닌 걸로 판단
+2. 결과: 항상 sum(F)=4로 정확히 나와서 이 문제는 아닌 걸로 판단
 
 ## 외삽법 써보기
 1. 개념  

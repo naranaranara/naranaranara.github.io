@@ -60,7 +60,8 @@ double integrate_solution_flux(const dealii::DoFHandler<3>& dof,
   return flux; 
 }
 ```
-  - solver_steady() 바로 뒤에 추가  
+- solver_steady() 바로 뒤에 추가
+  
 ```
 double q_from_sol = integrate_solution_flux(problem.dof_handler, problem.fe,
                                             problem.D_steady, /*k=*/385.0);

@@ -3,7 +3,7 @@ layout: post
 title:  "Paper Rebuild 시리즈 #1: 논문 상황 정의"
 toc: true          # 우측 목차
 toc_sticky: true   # 스크롤해도 고정
-date: 2025-11-5
+date: 2025-11-4
 tags: [markdown, blog]
 use_math: true
 mathjax: true

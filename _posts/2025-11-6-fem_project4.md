@@ -7,6 +7,7 @@ date: 2025-11-6
 tags: [markdown, blog]
 use_math: true
 mathjax: true
+render_with_liquid: false
 ---
 ## 국부 정련 끈 그래프끼리 비교
 <img width="400" height="357" alt="nohanging_(20,40,40)vs(24,48,48)" src="https://github.com/user-attachments/assets/256fd86e-6f0e-496a-ba8c-9fc7b8ec4eb1" />  

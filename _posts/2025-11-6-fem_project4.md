@@ -30,7 +30,7 @@ render_with_liquid: false
 
   - 경계를 id로 저장
 
-    ```
+```
 template <int dim>
 void FEM<dim>::generate_mesh(std::vector<unsigned int> numberOfElements)
 {
@@ -83,10 +83,10 @@ void FEM<dim>::generate_mesh(std::vector<unsigned int> numberOfElements)
         << ", ZMAX=" << faces_zmax
         << ", PATCH=" << faces_patch << std::endl;
 }
-  ```
+```
   - dirichlet b.c.
-<br>
-  ```
+
+```
 template <int dim>
 void FEM<dim>::define_boundary_conds()
 {
@@ -114,17 +114,17 @@ void FEM<dim>::define_boundary_conds()
   const unsigned n_fixed = std::count(on_id.begin(), on_id.end(), true);
   std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
 }
-  ```
+```
   - 확인 코드: dirichlet dofs(check)와 dirichlet dofs의 수가 값게 출력되어야 한다.
 
-  ```
+```
 std::cout << "[mesh] faces YMAX=" << faces_ymax
           << ", ZMAX=" << faces_zmax
           << ", PATCH=" << faces_patch << std::endl;
 
 std::cout << "[bc] Dirichlet DOFs = " << boundary_values_of_D.size() << std::endl;
 std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
-  ```
+```
 3\. 결과
 
   - (20,40,40)

@@ -45,6 +45,7 @@ for (unsigned int i=0; i<dof_handler.n_dofs(); ++i){
 ```
 ## Neuman B.C. 면적분 
 1\.$ \int _{\Gamma_N}(-q_0)N_A \, d\Gamma$  
+<br>
 2\.검증 방법: sum(F) 값이 -4 근처
 <br>
 ```
@@ -91,6 +92,7 @@ std::cout << "[surf]    Ttilde_L=" << Ttilde_L(T_s) << "\n";
 ```
 ## 국부 정련 
 1\.x=0 부분에서 패치 엣지의 영향이 x 방향으로 전파되는 것을 막기 위해서 패치 둘레에 얇은 띠를 정밀하게 만드는 과정  
+<br>
 2\.해상도(공간 정확도) 높이기  
 ```
 for (unsigned int r=0; r<2; ++r){ 
@@ -114,8 +116,6 @@ cmake --build build -j$(nproc)
 ```
 ## 실행 결과 및 고찰
 1\. sum(F)= -4 확인
-2\. [surface patch center] Ttilde_L ≈ 7.529
-$$
-\righarrow
-$$ 논문 값보다 +2.8%  
+2\. [surface patch center] Ttilde_L ≈ 7.529  
+$\rightarrow$ 논문 값보다 +2.8%  
 3\.지금은 mesh를 x,y,z 방향으로 각각 20,40,40으로 나눠놨는데 이게 너무 작아서 그런건 아닐까 의심중

@@ -29,7 +29,7 @@ render_with_liquid: false
 
   - 경계를 id로 저장
 
-```
+  ```
 template <int dim>
 void FEM<dim>::generate_mesh(std::vector<unsigned int> numberOfElements)
 {
@@ -82,10 +82,10 @@ void FEM<dim>::generate_mesh(std::vector<unsigned int> numberOfElements)
         << ", ZMAX=" << faces_zmax
         << ", PATCH=" << faces_patch << std::endl;
 }
-```
+  ```
   - dirichlet b.c.
 
-```
+  ```
 template <int dim>
 void FEM<dim>::define_boundary_conds()
 {
@@ -113,17 +113,17 @@ void FEM<dim>::define_boundary_conds()
   const unsigned n_fixed = std::count(on_id.begin(), on_id.end(), true);
   std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
 }
-```
+  ```
   - 확인 코드: dirichlet dofs(check)와 dirichlet dofs의 수가 값게 출력되어야 한다.
 
-```
+  ```
 std::cout << "[mesh] faces YMAX=" << faces_ymax
           << ", ZMAX=" << faces_zmax
           << ", PATCH=" << faces_patch << std::endl;
 
 std::cout << "[bc] Dirichlet DOFs = " << boundary_values_of_D.size() << std::endl;
 std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
-```
+  ```
 3\. 결과
 
   - (20,40,40)
@@ -154,7 +154,7 @@ std::cout << "[bc] Dirichlet DOFs (check) = " << n_fixed << std::endl;
 # 최종 코드
 - fem.h
 
-```
+  ```
 #ifndef FEM4_H
 #define FEM4_H
 #include <deal.II/base/quadrature_lib.h>
@@ -598,10 +598,10 @@ double FEM<dim>::l2norm()
 }
 
 #endif 
-```
+  ```
 - main.cc
 
-```
+  ```
 #define BOOST_ALLOW_DEPRECATED_HEADERS
 #include <iostream>
 #include <vector>
@@ -706,5 +706,5 @@ int main(){
     std::cerr << "\nUnknown exception!" << std::endl; return 1;
   }
 }
-```
+  ```
   

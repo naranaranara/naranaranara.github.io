@@ -10,21 +10,21 @@ mathjax: true
 render_with_liquid: false
 ---
 ## 국부 정련 끈 그래프끼리 비교
-<img width="400" height="357" alt="nohanging_(20,40,40)vs(24,48,48)" src="https://github.com/user-attachments/assets/256fd86e-6f0e-496a-ba8c-9fc7b8ec4eb1" />  
+<img width="400" height="357" alt="nohanging_(20,40,40)vs(24,48,48)" src="https://github.com/user-attachments/assets/256fd86e-6f0e-496a-ba8c-9fc7b8ec4eb1" />{: .centered }  
 
 1\. haning node는 국부 정련을 했을 때, 큰 셀의 모서리/변 중간에만 걸려 있는(맞은편 셀 꼭짓점과 안 맞는) ‘매달린’ 절점이다.
    
 2\. 그래프 해석: 그래프가 끊기는 현상은 발생하지 않았지만 값이 이론값과 많이 달라졌고 x=1로 가면서의 값이 두 경우 모두 비슷한 값이여야 하지만 아예 다른 경향을 보인다. $\rightarrow$ 뭔가 잘못됨.
 
 ## ubuntu를 멀티 부팅으로 다운
-<img width="325" height="391" alt="coarsettilde" src="https://github.com/user-attachments/assets/10461b1f-0af6-4fa8-a984-2e1096423b9a" />  
+<img width="325" height="391" alt="coarsettilde" src="https://github.com/user-attachments/assets/10461b1f-0af6-4fa8-a984-2e1096423b9a" />{: .centered }  
 
 1 \. 멀티 부팅으로 ubuntu 다운 받으니까 계산 속도가 빨라졌다. 그래서 30,60,60을 넣었는데 매쉬가 딱 맞게 들어가서 그런지 haning node가 발생하지 않았다. $\rightarrow$ Ny=60이면 hy=20/60=1/3 $\rightarrow$ y<3이 딱 9칸(정수)라 경계가 깔끔하게 떨어져서 못 읽는 격자가 없어졌다.  
 
-<img width="400" height="357" alt="haning_(20,40,40)vs(30,60,60)" src="https://github.com/user-attachments/assets/cea697e0-2a3d-4b99-8d2f-30aa24af071c" />  
+<img width="400" height="357" alt="haning_(20,40,40)vs(30,60,60)" src="https://github.com/user-attachments/assets/cea697e0-2a3d-4b99-8d2f-30aa24af071c" />{: .centered }  
 2\. 한 그래프에서 한번에 비교해봤다. 근데 수렴되는 값이 서로 달랐다. x=1일 때 (패치 바로 뒷면)에서는 단열 조건이므로 비슷한 값으로 수렴해야한다. &\rightarrow$ T+C가 있어도 미분하면 상수항이 없어지는 문제가 있다. 따라서 메시/정련에 따라서 몇 개가 빠지거나  더 걸리거나 하면 곡선이 평행이동하는 현상이 생긴다. 따라서 id를 사용해서 상수 오프셋을 없애주면 전체 face의 모든 dof가 항상 동일하게 고정된다. 매쉬 수가 달라져도 같은 값으로 수렴할 수 있다.
 
-<img width="400 " height="357" alt="bc_edit_(20,40,40)vs(30,60,60)" src="https://github.com/user-attachments/assets/7e8462d1-a411-4006-a4f7-5ea56cdac23a" />  
+<img width="400 " height="357" alt="bc_edit_(20,40,40)vs(30,60,60)" src="https://github.com/user-attachments/assets/7e8462d1-a411-4006-a4f7-5ea56cdac23a" />{: .centered }  
 3\. 최종 결과 그래프
 
 

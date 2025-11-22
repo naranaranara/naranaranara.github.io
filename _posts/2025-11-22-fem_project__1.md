@@ -14,11 +14,9 @@ mathjax: true
 
 이번에는 로켓 핀에 작용하는 응력을 확인해보기 위해서 직사각형 패널을 모델링하고 fsi의 효과를 테스트 해보기!  
 
-## 지배방정식 (구조+유체)
+## 구조  
 
-1 \. 구조  
-
-\- 지배방정식 (quasi-static)  
+-\ 지배방정식 (quasi-static)  
 
 $$
 -\nabla \cdot \sigma(\mathbf{u}) = \mathbf{0} \quad \text{in } \Omega 
@@ -28,7 +26,7 @@ $$
 Quasi-static이라고 했는데 지배방정식은 왜 static인지?  
 왜냐면 순간순간은 정적 평형 상태이지만, 노이만 경계조건에서 압력에 따른 외력이 $sin(t)$로 시간에 따라 변하기 때문이다. 즉, 정적인 식을 시간에 따라 값을 바꿔가면서 여러 번 풀기 때문에 준정적이다.  
 
-\- 구성방정식 (훅의 법칙)  
+-\ 구성방정식 (훅의 법칙)  
 
 $$
 \sigma_{ij} = C_{ijkl} \varepsilon_{kl}
@@ -50,7 +48,7 @@ double FEM<dim>::C(unsigned int i,unsigned int j,
 }
 ```
 
-\- 경계조건  
+-\ 경계조건  
 
 왼쪽($x=0$) : 로켓 몸통에 붙은 곳 $\rightarrow$ 디리클레 경계조건 
 $$
@@ -138,9 +136,9 @@ if (use_pressure_right)
     }
 ```
 
-2\. 유체  
+## 유체  
 
-\- 지배방정식  
+-\ 지배방정식  
 $$
 \tau_f \dot{p}(t) + p(t) = -K_v v(t) + p_{\text{ext}}(t)
 $$  
@@ -150,11 +148,98 @@ $p(t)$: 초기 압력
 $-K_v v(t)$: 유체 압력이 그 움직임을 저지하는 방향(-)로 바뀜  
 $p_{\text{ext}}(t)$: 외부에서 주어지는 압력  
 
-\. 구성방정식 ($p$가 $v$와 $p_{ext}$를 어떤 형태로 따른다고 보는가?)  
+-\ 구성방정식 ($p$가 $v$와 $p_{ext}$를 어떤 형태로 따른다고 보는가?)  
 
 $$
 \dot{p} = \frac{-p - K_v v + p_{\text{ext}}}{\tau_f}
 $$  
+
+-\ 초기조건  
+
+$$
+p(0)=p_0
+$$  
+
+```c++
+double time  = 0.0;
+double p     = 0.0;
+```
+
+코드:  
+
+```c++
+template <int dim>
+void FEM<dim>::run_fsi()
+{
+  setup_system(); 
+
+  const double dt    = 0.01;   
+  const double T_end = 5.0;   
+  const double Kv    = 2.0;  
+  const double tau_f = 0.05; 
+  const double P0   = 1.0e3; 
+  const double fHz  = 1.0; 
+  const double two_pi_f = 2.0 * 3.141592653589793 * fHz; // 2πf
+
+  double time  = 0.0;
+  double p     = 0.0;     
+  double q_old = 0.0;        
+  unsigned int step = 0;
+
+  while (time <= T_end)
+  {
+    assemble_system(p);
+    solve();
+
+    double q = get_tip_displacement_y();  
+    double v = (q - q_old) / dt;         
+
+    const double p_ext = P0 * std::sin(2.0 * M_PI * fHz * time);
+
+    const double alpha = dt / tau_f;
+    double p_new = ( p - alpha * Kv * v + alpha * p_ext )
+                   / ( 1.0 + alpha );
+
+    p     = p_new;
+    q_old = q;
+
+    time += dt;
+    ++step;
+  }
+}
+```
+
+**<정리>**  
+
+1\. 유체 $\rightarrow$ 구조  
+-\ 유체쪽 1-DOF ODE 가 계산한 압력 $p(t)$를 구조한테 넘겨줌  
+-\ 구조 FEM 코드에서 이 $p(t)$를 오른쪽 노이만 하중으로 사용  
+
+```c++
+assemble_system(p);
+solve();        
+```
+
+2\. 구조 $\rightarrow$ 유체  
+
+-\ 구조 해석 결과에서 tip 변위 $q(t)$를 뽑고  
+-\ 타임 스텝 차이 속도 term을 만들어서 유체 ODE에 넣어줌  
+
+```c++
+double q = get_tip_displacement_y();
+double v = (q - q_old) / dt;   
+```
+
+<img width="704" height="384" alt="Gemini_Generated_Image_7c4z657c4z657c4z" src="https://github.com/user-attachments/assets/ccc347f8-f26c-4bcd-8763-3e07adf741f0" />  
+
+## 결과  
+
+![fsi_x](https://github.com/user-attachments/assets/6a003fd0-5b60-4369-b74b-6fba56473153)  
+
+![fsi_y](https://github.com/user-attachments/assets/65e66196-95f7-4687-86b7-32e8d7e3330e)
+
+
+
 
 
 

@@ -1,4 +1,4 @@
----
+<img width="903" height="570" alt="image (4)" src="https://github.com/user-attachments/assets/85cffe16-92e3-467b-b197-67ad25959f09" />---
 layout: post
 title:  "FSI 시리즈 #1"
 toc: true          # 우측 목차
@@ -244,7 +244,166 @@ double v = (q - q_old) / dt;
 ![fsi_x](https://github.com/user-attachments/assets/6a003fd0-5b60-4369-b74b-6fba56473153){: .centered }   
   
 
-![fsi_y](https://github.com/user-attachments/assets/65e66196-95f7-4687-86b7-32e8d7e3330e){: .centered }   
+![fsi_y](https://github.com/user-attachments/assets/65e66196-95f7-4687-86b7-32e8d7e3330e){: .centered }  
+
+## 검증  
+
+검증은 매트랩 코드를 통해서 했다.  
+
+```
+clear; clc; close all;
+
+target_axis = 'y';  
+
+filename = 'fsi_result.csv'; 
+col_idx_x = 6; 
+col_idx_y = 7;  
+
+Lx = 10.0; Ly = 50.0;
+E  = 7.0e4; nu = 0.33;
+dt = 0.01; T_end = 5.0;
+Kv = 2.0; tau_f = 0.05;
+P0 = 1.0e3; fHz = 1.0;
+
+E_eff = E / (1 - nu^2);    
+K_eq  = (E_eff * Ly) / Lx;   
+
+t = 0:dt:T_end;
+N = length(t);
+p = zeros(1, N);      
+u_x_model = zeros(1, N); % X방향 변위 (Model)
+v_tip = zeros(1, N);  
+
+for i = 1:N-1
+    force = p(i) * Ly; 
+    u_x_model(i) = - force / K_eq; % 압축이므로 음수
+    
+    if i > 1, v_tip(i) = (u_x_model(i) - u_x_model(i-1)) / dt; else, v_tip(i) = 0; end
+    p_ext = P0 * sin(2 * pi * fHz * t(i));
+    alpha = dt / tau_f;
+    p_new = (p(i) - alpha * Kv * v_tip(i) + alpha * p_ext) / (1 + alpha);
+    p(i+1) = p_new;
+end
+u_x_model(N) = -(p(N) * Ly) / K_eq;
+
+if strcmpi(target_axis, 'x')
+    fprintf('>> 모드: X방향 변위 검증 (압축 거동)\n');
+
+    theory_data = u_x_model;
+
+    target_col = col_idx_x;
+
+    y_label_str = 'Tip Displacement u_x (mm)';
+    title_str   = 'Validation: X-Direction (Compression)';
+    
+elseif strcmpi(target_axis, 'y')
+
+    fprintf('>> 모드: Y방향 변위 검증 (푸아송 효과)\n');
+
+    nu_eff = nu / (1 - nu);
+    % Y 변위 = |X변위| * nu_eff * (Ly/Lx) * 0.5 (상단 노드 기준)
+    u_y_model = -u_x_model * nu_eff * (Ly/Lx) * 0.5;
+    
+    theory_data = u_y_model;
+
+    target_col = col_idx_y;
+
+    y_label_str = 'Top Corner Displacement u_y (mm)';
+    title_str   = 'Validation: Y-Direction (Poisson Expansion)';
+else
+    error('target_axis 변수는 ''x'' 또는 ''y''만 가능합니다.');
+end
+```
+
+1\. x 방향 변위 ($u_0$)  
+
+\- 기본 식 (훅의 법칙)  
+
+$$
+F = Kx \quad \rightarrow \quad x = \frac{F}{K}
+$$  
+
+\- 하중 조건  
+
+$$
+-F = P L_y
+$$  
+
+\- 스프링 상수($K$)  
+
+$$
+K = \frac{EA}{L}
+$$  
+
+- 조건: 평면변형률이여서 원래는 압축되면 y,z 축으로 변형이 생기는데 지금은 z축으로의 변형이 없다. 따라서 재료가 더 딱딱하게 느껴진다. 그래서 $E$ 대신에 유효탄성계수 $E_{eff}$를 사용한다.
+
+$$
+E_{eff} = \frac{E}{1 - \nu^2}
+$$  
+
+- 증명:
+
+$$
+\epsilon_x = \frac{1}{E}[\sigma_x - \nu(\sigma_y + \sigma_z)]
+\epsilon_z = \frac{1}{E}[\sigma_z - \nu(\sigma_x + \sigma_y)] = 0 \quad \rightarrow \quad \sigma_z = \nu(\sigma_x + \sigma_y)
+$$  
+
+**가정**  
+매트랩 1D 모델은 x방향으로만 스프링을 누르는 상황으로 가정한다. y방향으로 누르는 힘이 없어서 자유롭게 팽창한다.  
+FEM 해석에서는 왼쪽 벽이 막혀있다고 가정했는데 매트랩에서는 뚫려있다고 가정할 수 있는 이유는 생베낭의 원리로 $x=L$ 부근에서는 y방향 응력이 없다는 가정을 적용가능하다.  
+
+위의 가정에 따라서 $\sigma_y=0$이고 $\sigma_z=\nu \sigma_x$ 이므로,  
+
+$$
+\epsilon_x = \frac{1}{E}[\sigma_x - \nu(0 + \sigma_z)]
+\sigma_z = \nu\sigma_x
+E\epsilon_x = \sigma_x - \nu^2\sigma_x = (1 - \nu^2)\sigma_x \quad \rightarrow \quad \sigma_x = \left(\frac{E}{1 - \nu^2}\right) \epsilon_x  
+$$
+
+2\. y방향 변위 ($u_1$) $\rightarrow$ 푸아송의 원리  
+
+이 경우에도 위의 경우와 같이 z축 방향으로 변형이 못 일어나니까 y축으로 더 많이 튀어나오니까 유효 포아송비를 써줘야 한다.  
+
+$$
+\nu_{eff} = \frac{\nu}{1 - \nu}
+$$  
+
+- 증명:
+  $$
+  \nu_{eff} = -\frac{\epsilon_y}{\epsilon_x}
+\epsilon_x = \frac{\sigma_x}{E}(1 - \nu^2)
+\epsilon_y = \frac{1}{E}[\sigma_y - \nu(\sigma_x + \sigma_z)] = -\frac{\nu\sigma_x}{E}(1 + \nu)
+\therefore \nu_{eff} = \frac{-\frac{\nu\sigma_x}{E}(1 + \nu)}{\frac{\sigma_x}{E}(1 - \nu^2)} = \frac{\nu}{1 - \nu}
+  $$
+
+매트랩에 넣는 식은 최종 변위를 계산해주는 식을 넣어주고, 재료는 위아래 대칭으로 뚱뚱해지니까 절반을 나눠준다.
+
+$$
+\Delta L_y = \epsilon_y L_y = \left(-\nu_{eff} \frac{\Delta L_x}{L_x}\right) L_y = -\Delta L_x \cdot \nu_{eff} \cdot \frac{L_y}{L_x}
+\Delta L_y = -\Delta L_x \cdot \nu_{eff} \cdot \frac{L_y}{L_x} \times \frac{1}{2}
+$$
+
+## 그래프 비교  
+
+매트랩에서 가정할 때는 $x=L$인 지점에서는 왼쪽 모서리의 구속 효과가 작용하지 않는 것으로 하였는데 원래 모델은 ($L_x=10, L_y=50$)으로 x 방향의 길이가 y 방향보다 짧다. 따라서 $x=L$인 지점에서도 구속 효과가 작용한다. 따라서 결과 값을 비교해보면 오차가 심한 것을 확인할 수 있다. 따라서 코드 검증을 위해서 x 방향 길이를 늘려서 계산해보았을 때는 오차가 거의 없는 것을 확인할 수 있었다.  
+
+**\<Case 1\>**  
+
+<img width="903" height="570" alt="image" src="https://github.com/user-attachments/assets/4f51ad53-3264-48fb-9930-59150cfd0fae" />{: .centered}  
+
+<img width="903" height="570" alt="image (1)" src="https://github.com/user-attachments/assets/69a77672-00f0-421b-96b4-609972ea340b" />{: .centered}   
+  
+**\<Case 2\>**  
+
+<img width="903" height="570" alt="image (2)" src="https://github.com/user-attachments/assets/f512b51f-0273-4268-b1b4-e0225cdd91e5" /> {: .centered}    
+
+<img width="903" height="570" alt="image (3)" src="https://github.com/user-attachments/assets/84f00be2-8ac0-4996-a2c1-e454d8f6e62a" />{: .centered} 
+
+
+
+
+
+
 
 
 

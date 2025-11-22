@@ -236,13 +236,16 @@ double q = get_tip_displacement_y();
 double v = (q - q_old) / dt;   
 ```
 
-<img width="704" height="384" alt="Gemini_Generated_Image_7c4z657c4z657c4z" src="https://github.com/user-attachments/assets/ccc347f8-f26c-4bcd-8763-3e07adf741f0" />  
+<img width="704" height="384" alt="Gemini_Generated_Image_7c4z657c4z657c4z" src="https://github.com/user-attachments/assets/ccc347f8-f26c-4bcd-8763-3e07adf741f0" />{: .centered }   
+ 
 
 ## 결과  
 
-![fsi_x](https://github.com/user-attachments/assets/6a003fd0-5b60-4369-b74b-6fba56473153)  
+![fsi_x](https://github.com/user-attachments/assets/6a003fd0-5b60-4369-b74b-6fba56473153){: .centered }   
+  
 
-![fsi_y](https://github.com/user-attachments/assets/65e66196-95f7-4687-86b7-32e8d7e3330e)
+![fsi_y](https://github.com/user-attachments/assets/65e66196-95f7-4687-86b7-32e8d7e3330e){: .centered }   
+
 
 
 

@@ -1,4 +1,4 @@
-<img width="903" height="570" alt="image (4)" src="https://github.com/user-attachments/assets/85cffe16-92e3-467b-b197-67ad25959f09" />---
+---
 layout: post
 title:  "FSI 시리즈 #1"
 toc: true          # 우측 목차

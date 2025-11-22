@@ -389,15 +389,15 @@ $$
 
 **\<Case 1\>**  
 
-<img width="903" height="570" alt="image" src="https://github.com/user-attachments/assets/4f51ad53-3264-48fb-9930-59150cfd0fae" />{: .centered}  
+<img width="450" height="285" alt="image" src="https://github.com/user-attachments/assets/4f51ad53-3264-48fb-9930-59150cfd0fae" />{: .centered}  
 
-<img width="903" height="570" alt="image (1)" src="https://github.com/user-attachments/assets/69a77672-00f0-421b-96b4-609972ea340b" />{: .centered}   
+<img width="450" height="285" alt="image (1)" src="https://github.com/user-attachments/assets/69a77672-00f0-421b-96b4-609972ea340b" />{: .centered}   
   
 **\<Case 2\>**  
 
-<img width="903" height="570" alt="image (2)" src="https://github.com/user-attachments/assets/f512b51f-0273-4268-b1b4-e0225cdd91e5" /> {: .centered}    
+<img width="450" height="285" alt="image (2)" src="https://github.com/user-attachments/assets/f512b51f-0273-4268-b1b4-e0225cdd91e5" />{: .centered}    
 
-<img width="903" height="570" alt="image (3)" src="https://github.com/user-attachments/assets/84f00be2-8ac0-4996-a2c1-e454d8f6e62a" />{: .centered} 
+<img width="450" height="285" alt="image (3)" src="https://github.com/user-attachments/assets/84f00be2-8ac0-4996-a2c1-e454d8f6e62a" />{: .centered} 
 
 
 

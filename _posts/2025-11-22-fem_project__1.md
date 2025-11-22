@@ -16,13 +16,14 @@ mathjax: true
 
 ## 구조  
 
--\ 지배방정식 (quasi-static)  
+\- 지배방정식 (quasi-static)  
 
 $$
 -\nabla \cdot \sigma(\mathbf{u}) = \mathbf{0} \quad \text{in } \Omega 
 $$  
 
 <헷갈리는 부분>  
+
 Quasi-static이라고 했는데 지배방정식은 왜 static인지?  
 왜냐면 순간순간은 정적 평형 상태이지만, 노이만 경계조건에서 압력에 따른 외력이 $sin(t)$로 시간에 따라 변하기 때문이다. 즉, 정적인 식을 시간에 따라 값을 바꿔가면서 여러 번 풀기 때문에 준정적이다.  
 
@@ -33,6 +34,7 @@ $$
 $$  
 
 ```c++
+
 template <int dim>
 double FEM<dim>::C(unsigned int i,unsigned int j,
                    unsigned int k,unsigned int l)

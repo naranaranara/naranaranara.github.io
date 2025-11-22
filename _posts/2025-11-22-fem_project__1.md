@@ -50,19 +50,22 @@ double FEM<dim>::C(unsigned int i,unsigned int j,
 }
 ```
 
--\ 경계조건  
+\- 경계조건  
 
-왼쪽($x=0$) : 로켓 몸통에 붙은 곳 $\rightarrow$ 디리클레 경계조건 
+왼쪽($x=0$) : 로켓 몸통에 붙은 곳 $\rightarrow$ 디리클레 경계조건  
+
 $$
 u=0
 $$  
 
 오른쪽($x=L_x$): 유체가 미는 면 $\rightarrow$ 노이만 경계조건(압력)  
+
 $$
 \boldsymbol{\sigma} \mathbf{n} = \mathbf{t}(t) = -p(t) \mathbf{n}
 $$  
 
 위/아래($y=0,y=L_y$): 하중 없음 $\rightarrow$ 노이만 경계조건 (걍 내비둠)  
+
 $$
 \boldsymbol{\sigma} \mathbf{n} = \mathbf{0}
 $$  
@@ -81,7 +84,7 @@ $$
 
 코드:  
 
-**<디리클레 경계조건>**  
+**\<디리클레 경계조건\>**  
 
 ```c++
 template <int dim>
@@ -103,7 +106,7 @@ void FEM<dim>::define_boundary_conds()
 }
 ```
 
-**<노이만 경계조건>**  
+**\<노이만 경계조건\>**  
 
 ```c++
 if (use_pressure_right)
@@ -140,23 +143,24 @@ if (use_pressure_right)
 
 ## 유체  
 
--\ 지배방정식  
+\- 지배방정식  
+
 $$
 \tau_f \dot{p}(t) + p(t) = -K_v v(t) + p_{\text{ext}}(t)
 $$  
 
-$\tau_f \dot{p}(t)$: 유체는 점성이 있으므로 압력이 갑자기 못 변하고 $\tau_f$ 스케일로 부드럽게 따라간다.  
-$p(t)$: 초기 압력  
-$-K_v v(t)$: 유체 압력이 그 움직임을 저지하는 방향(-)로 바뀜  
+$\tau_f \dot{p}(t)$ : 유체는 점성이 있으므로 압력이 갑자기 못 변하고 $\tau_f$ 스케일로 부드럽게 따라간다.  
+$p(t)$ : 초기 압력  
+$-K_v v(t)$ : 유체 압력이 그 움직임을 저지하는 방향(-)로 바뀜  
 $p_{\text{ext}}(t)$: 외부에서 주어지는 압력  
 
--\ 구성방정식 ($p$가 $v$와 $p_{ext}$를 어떤 형태로 따른다고 보는가?)  
+\- 구성방정식 ($p$가 $v$와 $p_{ext}$를 어떤 형태로 따른다고 보는가?)  
 
 $$
 \dot{p} = \frac{-p - K_v v + p_{\text{ext}}}{\tau_f}
 $$  
 
--\ 초기조건  
+\- 초기조건  
 
 $$
 p(0)=p_0
@@ -211,11 +215,11 @@ void FEM<dim>::run_fsi()
 }
 ```
 
-**<정리>**  
+**\<정리\>**  
 
 1\. 유체 $\rightarrow$ 구조  
--\ 유체쪽 1-DOF ODE 가 계산한 압력 $p(t)$를 구조한테 넘겨줌  
--\ 구조 FEM 코드에서 이 $p(t)$를 오른쪽 노이만 하중으로 사용  
+\- 유체쪽 1-DOF ODE 가 계산한 압력 $p(t)$를 구조한테 넘겨줌  
+\- 구조 FEM 코드에서 이 $p(t)$를 오른쪽 노이만 하중으로 사용  
 
 ```c++
 assemble_system(p);
@@ -224,8 +228,8 @@ solve();
 
 2\. 구조 $\rightarrow$ 유체  
 
--\ 구조 해석 결과에서 tip 변위 $q(t)$를 뽑고  
--\ 타임 스텝 차이 속도 term을 만들어서 유체 ODE에 넣어줌  
+\- 구조 해석 결과에서 tip 변위 $q(t)$를 뽑고  
+\- 타임 스텝 차이 속도 term을 만들어서 유체 ODE에 넣어줌  
 
 ```c++
 double q = get_tip_displacement_y();

@@ -250,7 +250,7 @@ double v = (q - q_old) / dt;
 
 검증은 매트랩 코드를 통해서 했다.  
 
-```
+```matlab
 clear; clc; close all;
 
 target_axis = 'y';  

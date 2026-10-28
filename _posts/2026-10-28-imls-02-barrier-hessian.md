@@ -93,3 +93,5 @@ $$
 Huang, Chitalu, Lin, Komura의 [GIPC: Fast and Stable Gauss-Newton Optimization of IPC Barrier Energy (2024)](https://doi.org/10.1145/3643028)는 접촉 기하의 재정식화, 해석적 eigensystem, filtering·stiffening, nearly parallel edge-edge 처리와 GPU 구현 등을 다룬다. 논문 첫 부분과 기여 설명을 확인했다. 현재 scalar-gap GN과 계수 제한은 그 아이디어에서 출발한 공부용 실험이다. 논문의 전체 방법이나 보고된 가속을 재현했다고 말할 수 없다. 다음 단계는 FEM 강성과 접촉 Hessian을 한 에너지 안에서 결합하는 것이다.
 
 이번 `run_stage3.py` 재실행에서 평면은 세 방법 모두 4회 업데이트로 수렴했다. 오각형 모서리도 모두 5회로 수렴했고, 위치는 약 `(0.435376, 1.230267)`, gap은 `0.1989185`, 에너지는 `0.0673452`였다. 이 한 예제의 결과가 일반 곡면 전체의 수렴 보장은 아니다.
+
+2026-10-28 추가 학습: 생략한 곡률 항의 접선 강성 효과는 [구면 진단]({{ '/imls/10-sphere-curvature/' | relative_url }})에서 분석했다. 다만 반복 수 증가와 실행시간 증가는 다르며, [실제 시간 비교]({{ '/imls/12-runtime-and-refactor/' | relative_url }})에서 GN이 더 빠른 사례도 확인했다.

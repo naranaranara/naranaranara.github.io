@@ -43,7 +43,7 @@ python fem2d/block_sliding.py --compare-ipc --show
 
 ## 공식 IPC는 어떻게 분리했나?
 
-실제 비교 구현은 `ipc/test_ipc_comparison.py`, `ipc/test_ipc_worker.py`, 의존성은 `ipc/requirements-ipc.txt`에 분리했다. 공식 `ipctk==1.3.0`을 지속적인 별도 subprocess에서 사용해 이 환경의 Torch·native 라이브러리 충돌을 피한다. worker는 공식 collision constraints, barrier 미분, PSD projection과 `compute_collision_free_stepsize`를 호출한다. 블록과 고정 바닥 사이 접촉만 허용하며 self-contact와 friction은 제외한다.
+실제 비교 구현은 `ipc/ipc_comparison.py`, `ipc/ipc_worker.py`, 의존성은 `ipc/requirements-ipc.txt`에 분리했다. 공식 `ipctk==1.3.0`을 지속적인 별도 subprocess에서 사용해 이 환경의 Torch·native 라이브러리 충돌을 피한다. worker는 공식 collision constraints, barrier 미분, PSD projection과 `compute_collision_free_stepsize`를 호출한다. 블록과 고정 바닥 사이 접촉만 허용하며 self-contact와 friction은 제외한다.
 
 IPC는 공식 CCD를 사용하고 RIMLS는 후보 상태의 양의 gap·면적·지지 영역을 확인한다. RIMLS도 IPC와 같은 CCD 보장을 갖는다고 쓰면 안 된다.
 
@@ -66,7 +66,7 @@ IPC 블록의 기울어짐은 앞선 결과 그림에서 관찰되었지만 절�
 41개 위치는 40개 이동 구간이다. 바닥 점 13개는 12개 선분을 만든다. `nx`는 블록의 가로 FEM 절점 수이며 현재 메시에는 가로 2행이 있다. 셋은 서로 다른 해상도다.
 
 ```bash
-python ipc/test_ipc_comparison.py --increments 41 --max-displacement 0.4 --plane-samples 13
+python ipc/ipc_comparison.py --increments 41 --max-displacement 0.4 --plane-samples 13
 ```
 
 기존 `floor13_steps41`, `floor25_steps41`, `floor49_steps41`의 CSV에서 IPC만 집계한 값은 다음과 같다. 이번에 CSV를 재집계한 결과이며 41개 위치 실험 전체를 새로 실행한 것은 아니다.
@@ -83,6 +83,8 @@ python ipc/test_ipc_comparison.py --increments 41 --max-displacement 0.4 --plane
 
 ## 한계와 다음 단계
 
-절대 접촉 에너지는 정의·적분 방식이 달라 우열 비교의 기준이 아니다. C++ IPC와 Python/Torch 계산, 프로세스 통신 비용이 섞인 시간도 공정한 속도 benchmark가 아니다. 현재 결과는 특정 2D 평면 문제의 관찰이다. 연구 아이디어의 노벨티나 GIPC 대비 속도 우월성은 아직 입증하지 않았다. 다음에는 독립 기준해로 조립 정확성을 확인하고 일반 곡면과 3D 접촉은 별도로 검증해야 한다.
+절대 접촉 에너지는 정의·적분 방식이 달라 우열 비교의 기준이 아니다. C++ IPC와 Python/Torch 계산, 프로세스 통신 비용이 섞인 시간도 공정한 속도 benchmark가 아니다. 현재 결과는 특정 2D 평면 문제의 관찰이다. 연구 아이디어의 노벨티나 GIPC 대비 속도 우월성은 아직 입증하지 않았다. 이후 3D 접촉·힘 구동 검증과 곡면 실험까지 확장했다. 현재 진행은 [7편]({{ '/imls/07-fem3d-contact/' | relative_url }})부터 이어진다. 이 글의 표는 초기 2D 실험 기록으로 유지한다.
 
 배경은 Du et al.의 [smooth surface contact 논문 (2024)](https://doi.org/10.1111/cgf.15187) §3–4에서 확인했다. 공식 도구의 출처는 [IPC Toolkit 저장소](https://github.com/ipc-sim/ipc-toolkit)다.
+
+2026-10-28 추가 갱신: IPC 구현을 정식 파일로 이관해 본문의 경로와 명령을 수정했다. 수치 표는 기존 2D 결과이며 새 3D 결과와 혼합하지 않는다.
